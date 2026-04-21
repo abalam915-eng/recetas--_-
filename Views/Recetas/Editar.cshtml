@@ -1,0 +1,27 @@
+@model RecetasApp.Models.Receta
+@{
+    ViewData["Title"] = "Editar Receta";
+}
+<h2>Editar Receta (Borrador)</h2>
+<hr />
+<form asp-action="Editar" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="UsuarioId" />
+    <input type="hidden" asp-for="Estatus" />
+    <input type="hidden" asp-for="FechaCreacion" />
+    
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Ingredientes" class="form-label"></label>
+        <textarea asp-for="Ingredientes" class="form-control" rows="5" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Pasos" class="form-label"></label>
+        <textarea asp-for="Pasos" class="form-control" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="MisRecetas" class="btn btn-secondary">Cancelar</a>
+</form>

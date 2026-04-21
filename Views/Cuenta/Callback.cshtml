@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Autenticando...";
+}
+
+<div class="text-center mt-5">
+    <h2>Completando el inicio de sesión...</h2>
+    <p>Por favor espera un momento.</p>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const hash = window.location.hash;
+            if (hash && hash.includes("access_token")) {
+                const params = new URLSearchParams(hash.substring(1));
+                const accessToken = params.get("access_token");
+                const refreshToken = params.get("refresh_token");
+                
+                fetch('/Cuenta/SetSession', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        access_token: accessToken, 
+                        refresh_token: refreshToken 
+                    })
+                }).then(res => {
+                    if(res.ok) {
+                        window.location.href = '/';
+                    } else {
+                        window.location.href = '/Cuenta/Login';
+                    }
+                }).catch(err => {
+                    window.location.href = '/Cuenta/Login';
+                });
+            } else {
+                window.location.href = '/Cuenta/Login';
+            }
+        });
+    </script>
+}

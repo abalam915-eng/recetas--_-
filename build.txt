@@ -1,0 +1,23 @@
+﻿  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos est├ín actualizados para la restauraci├│n.
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(29,67): error CS0103: El nombre 'Provider' no existe en el contexto actual [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(29,52): error CS1061: "IGotrueClient<User, Session>" no contiene una definici├│n para "GetProviderUrl" ni un m├®todo de extensi├│n accesible "GetProviderUrl" que acepte un primer argumento del tipo "IGotrueClient<User, Session>" (┬┐falta alguna directiva using o una referencia de ensamblado?) [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(38,48): error CS7036: No se ha dado ning├║n argumento que corresponda al par├ímetro requerido "authCode" de "IGotrueClient<User, Session>.ExchangeCodeForSession(string, string)" [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(43,31): error CS1503: Argumento 1: no se puede convertir de 'string' a 'System.IO.BinaryReader' [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(44,31): error CS1503: Argumento 1: no se puede convertir de 'string' a 'System.IO.BinaryReader' [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(45,31): error CS1503: Argumento 1: no se puede convertir de 'string' a 'System.IO.BinaryReader' [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Program.cs(13,63): warning CS8604: Posible argumento de referencia nulo para el par├ímetro "supabaseUrl" en "Client.Client(string supabaseUrl, string? supabaseKey, SupabaseOptions? options = null)". [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+
+ERROR al compilar.
+
+C:\geminicode\mich\RecetasApp\Program.cs(13,63): warning CS8604: Posible argumento de referencia nulo para el par├ímetro "supabaseUrl" en "Client.Client(string supabaseUrl, string? supabaseKey, SupabaseOptions? options = null)". [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(29,67): error CS0103: El nombre 'Provider' no existe en el contexto actual [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(29,52): error CS1061: "IGotrueClient<User, Session>" no contiene una definici├│n para "GetProviderUrl" ni un m├®todo de extensi├│n accesible "GetProviderUrl" que acepte un primer argumento del tipo "IGotrueClient<User, Session>" (┬┐falta alguna directiva using o una referencia de ensamblado?) [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(38,48): error CS7036: No se ha dado ning├║n argumento que corresponda al par├ímetro requerido "authCode" de "IGotrueClient<User, Session>.ExchangeCodeForSession(string, string)" [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(43,31): error CS1503: Argumento 1: no se puede convertir de 'string' a 'System.IO.BinaryReader' [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(44,31): error CS1503: Argumento 1: no se puede convertir de 'string' a 'System.IO.BinaryReader' [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+C:\geminicode\mich\RecetasApp\Controllers\CuentaController.cs(45,31): error CS1503: Argumento 1: no se puede convertir de 'string' a 'System.IO.BinaryReader' [C:\geminicode\mich\RecetasApp\RecetasApp.csproj]
+    1 Advertencia(s)
+    6 Errores
+
+Tiempo transcurrido 00:00:01.30

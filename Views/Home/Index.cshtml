@@ -1,0 +1,48 @@
+﻿@model IEnumerable<RecetasApp.Models.Receta>
+
+@{
+    ViewData["Title"] = "Inicio - Recetas Públicas";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-4">Recetas Públicas</h1>
+    <p>Descubre las recetas compartidas por nuestra comunidad.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @if(Model != null && Model.Any())
+    {
+        foreach (var receta in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@receta.Titulo</h5>
+                        <p class="card-text text-muted">Publicado el @receta.FechaPublicacion?.ToString("dd/MM/yyyy")</p>
+                        <h6>Ingredientes</h6>
+                        <p class="card-text" style="white-space: pre-line">@receta.Ingredientes</p>
+                        <h6>Pasos</h6>
+                        <p class="card-text" style="white-space: pre-line">@receta.Pasos</p>
+                    </div>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="card-footer bg-transparent border-top-0">
+                            <form asp-controller="Favoritos" asp-action="MarcarFavorito" method="post">
+                                <input type="hidden" name="recetaId" value="@receta.Id" />
+                                <button type="submit" class="btn btn-outline-danger w-100">
+                                    ❤️ Marcar como Favorito
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-12 text-center text-muted">
+            <p>Aún no hay recetas públicas.</p>
+        </div>
+    }
+</div>

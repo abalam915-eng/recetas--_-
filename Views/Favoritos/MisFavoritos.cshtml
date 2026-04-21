@@ -1,0 +1,36 @@
+@model IEnumerable<RecetasApp.Models.Favorito>
+@{
+    ViewData["Title"] = "Mis Favoritos";
+}
+<h2>Mis Favoritos</h2>
+<p class="text-muted">Las recetas que has marcado como favoritas.</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Resumen (Receta ID)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model != null && Model.Any())
+        {
+            foreach(var fav in Model)
+            {
+                <tr>
+                    <!-- Idealmente aquí haríamos JOIN con el título de Receta, para la demo vemos ID -->
+                    <td class="font-monospace text-muted">@fav.RecetaId</td>
+                    <td>
+                        <form asp-controller="Favoritos" asp-action="QuitarFavorito" method="post">
+                            <input type="hidden" name="id" value="@fav.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Quitar de Favoritos</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="2" class="text-center">No tienes favoritos aún.</td></tr>
+        }
+    </tbody>
+</table>

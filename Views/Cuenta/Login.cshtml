@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-4 text-center">
+        <h2>Iniciar Sesión</h2>
+        <p class="text-muted">Inicia sesión con tu cuenta de GitHub para continuar.</p>
+        <form asp-controller="Cuenta" asp-action="LoginGithub" method="post">
+            <button type="submit" class="btn btn-dark w-100 mt-3 p-3">
+                <strong>Login con GitHub</strong>
+            </button>
+        </form>
+    </div>
+</div>
