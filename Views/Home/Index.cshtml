@@ -33,18 +33,27 @@
                     }
                     <div class="card-body d-flex flex-column text-center bg-light">
                         <h5 class="card-title fw-bold text-dark mt-2">@receta.Titulo</h5>
-                        <p class="card-text text-muted mb-3"><small>Publicado el @receta.FechaPublicacion?.ToString("dd/MM/yyyy")</small></p>
+                        <p class="card-text text-muted mb-1"><small>Publicado el @receta.FechaPublicacion?.ToString("dd/MM/yyyy")</small></p>
+                        <p class="text-secondary small mb-3">
+                            <strong>Autor Original:</strong> @(receta.AutorOriginal ?? "Desconocido")
+                        </p>
                         <button type="button" class="btn btn-primary mt-auto w-100 fw-semibold shadow-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalReceta_@receta.Id.ToString("N")">
                             Ver Detalles
                         </button>
                     </div>
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <div class="card-footer bg-transparent border-top-0 pt-0">
-                            <form asp-controller="Favoritos" asp-action="MarcarFavorito" method="post">
+                        <div class="card-footer bg-transparent border-top-0 pt-0 d-flex gap-2">
+                            <form asp-controller="Favoritos" asp-action="MarcarFavorito" method="post" class="flex-fill">
                                 <input type="hidden" name="recetaId" value="@receta.Id" />
-                                <button type="submit" class="btn btn-outline-danger w-100">
-                                    ❤️ Favorito
+                                <button type="submit" class="btn btn-outline-danger w-100 h-100" title="Marcar como Favorito">
+                                    ❤️️ Favorito
+                                </button>
+                            </form>
+                            <form asp-controller="Recetas" asp-action="Copiar" method="post" class="flex-fill">
+                                <input type="hidden" name="recetaId" value="@receta.Id" />
+                                <button type="submit" class="btn btn-outline-dark w-100 h-100" title="Copiar a Mis Recetas">
+                                    📁 Copiar
                                 </button>
                             </form>
                         </div>

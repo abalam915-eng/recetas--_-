@@ -15,7 +15,9 @@
     <thead>
         <tr>
             <th>Título</th>
-            <th>Fecha Creación</th>
+            <th>Autor Original</th>
+            <th>Modificado por</th>
+            <th>Fecha</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -26,11 +28,16 @@
             {
                 <tr>
                     <td>@item.Titulo</td>
+                    <td>@(item.AutorOriginal ?? "Yo")</td>
+                    <td>Tú</td>
                     <td>@item.FechaCreacion.ToString("dd/MM/yyyy HH:mm")</td>
                     <td>
                         <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
                         <form asp-action="Publicar" asp-route-id="@item.Id" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-sm btn-success">Publicar Copia</button>
+                        </form>
+                        <form asp-action="Eliminar" asp-route-id="@item.Id" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas borrar este borrador?');">
+                            <button type="submit" class="btn btn-sm btn-danger ms-1">Borrar</button>
                         </form>
                     </td>
                 </tr>
@@ -38,7 +45,7 @@
         }
         else
         {
-            <tr><td colspan="3" class="text-center">No hay borradores.</td></tr>
+            <tr><td colspan="5" class="text-center">No hay borradores.</td></tr>
         }
     </tbody>
 </table>
@@ -48,8 +55,10 @@
     <thead>
         <tr>
             <th>Título</th>
+            <th>Autor Original</th>
+            <th>Modificado por</th>
             <th>Fecha Publicación</th>
-            <th>Estado</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -63,16 +72,20 @@
                         <br><img src="@item.Imagen" class="img-thumbnail mt-1" style="max-height:60px;" />
                     }
                     </td>
+                    <td>@(item.AutorOriginal ?? "Yo")</td>
+                    <td>Tú</td>
                     <td>@item.FechaPublicacion?.ToString("dd/MM/yyyy HH:mm")</td>
                     <td>
-                        <span class="badge bg-success">Publicada</span>
+                        <form asp-action="Eliminar" asp-route-id="@item.Id" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas borrar esta publicación?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
+                        </form>
                     </td>
                 </tr>
             }
         }
         else
         {
-            <tr><td colspan="3" class="text-center">No has publicado recetas aún.</td></tr>
+            <tr><td colspan="5" class="text-center">No has publicado recetas aún.</td></tr>
         }
     </tbody>
 </table>

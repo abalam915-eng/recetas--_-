@@ -25,6 +25,9 @@ namespace RecetasApp.Models
         [Column("imagen")]
         public string? Imagen { get; set; }
 
+        [Column("autororiginal")]
+        public string? AutorOriginal { get; set; }
+
         [Column("estatus")]
         public string Estatus { get; set; } = "Borrador";
 

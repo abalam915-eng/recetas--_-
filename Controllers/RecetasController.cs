@@ -69,8 +69,55 @@ namespace RecetasApp.Controllers
                 modelo.Imagen = "/uploads/" + fileName;
             }
 
+            if(string.IsNullOrEmpty(modelo.AutorOriginal))
+            {
+                // Si nosotros la creamos de 0, somos el autor original
+                var authUser = await _supabase.From<Usuario>().Where(x => x.Id == userId).Get();
+                modelo.AutorOriginal = authUser.Models.FirstOrDefault()?.Nombre ?? "Yo";
+            }
+
             await _supabase.From<Receta>().Insert(modelo);
 
+            return RedirectToAction(nameof(MisRecetas));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Copiar(Guid recetaId)
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var result = await _supabase.From<Receta>().Where(x => x.Id == recetaId).Get();
+            var recetaOriginal = result.Models.FirstOrDefault();
+
+            if (recetaOriginal != null)
+            {
+                var recetaCopiada = new Receta
+                {
+                    UsuarioId = userId,
+                    Titulo = recetaOriginal.Titulo + " (Copia)",
+                    Ingredientes = recetaOriginal.Ingredientes,
+                    Pasos = recetaOriginal.Pasos,
+                    Imagen = recetaOriginal.Imagen,
+                    Estatus = "Borrador",
+                    FechaCreacion = DateTime.UtcNow,
+                    AutorOriginal = recetaOriginal.AutorOriginal ?? "Anónimo"
+                };
+                await _supabase.From<Receta>().Insert(recetaCopiada);
+            }
+            return RedirectToAction(nameof(MisRecetas));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(Guid id)
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var result = await _supabase.From<Receta>().Where(x => x.Id == id).Get();
+            var receta = result.Models.FirstOrDefault();
+
+            if (receta != null && receta.UsuarioId == userId)
+            {
+                await _supabase.From<Receta>().Where(x => x.Id == id).Delete();
+            }
+            
             return RedirectToAction(nameof(MisRecetas));
         }
 
@@ -125,6 +172,7 @@ namespace RecetasApp.Controllers
                 Ingredientes = recetaBorrador.Ingredientes,
                 Pasos = recetaBorrador.Pasos,
                 Imagen = recetaBorrador.Imagen,
+                AutorOriginal = recetaBorrador.AutorOriginal,
                 Estatus = "Publicada",
                 FechaCreacion = recetaBorrador.FechaCreacion,
                 FechaPublicacion = DateTime.UtcNow
