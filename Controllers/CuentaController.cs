@@ -61,6 +61,19 @@ namespace RecetasApp.Controllers
             
             if (session?.User != null)
             {
+                // Extracción segura de Metadata
+                string nombreMetadato = "Usuario Github";
+                if (session.User.UserMetadata != null && session.User.UserMetadata.ContainsKey("full_name"))
+                {
+                    nombreMetadato = session.User.UserMetadata["full_name"]?.ToString() ?? "Usuario Github";
+                }
+                
+                string? githubIdMetadato = null;
+                if (session.User.UserMetadata != null && session.User.UserMetadata.ContainsKey("user_name"))
+                {
+                    githubIdMetadato = session.User.UserMetadata["user_name"]?.ToString();
+                }
+
                 // Sincronizar el usuario con nuestra tabla pública
                 var userIdStr = session.User.Id;
                 if (!string.IsNullOrEmpty(userIdStr))
@@ -73,8 +86,8 @@ namespace RecetasApp.Controllers
                         {
                             Id = userId,
                             Email = session.User.Email,
-                            Nombre = session.User.UserMetadata?["full_name"]?.ToString() ?? "Usuario Github",
-                            GitHubId = session.User.UserMetadata?["user_name"]?.ToString()
+                            Nombre = nombreMetadato,
+                            GitHubId = githubIdMetadato
                         };
                         await _supabase.From<Usuario>().Insert(nuevoUsuario);
                     }
@@ -84,7 +97,7 @@ namespace RecetasApp.Controllers
                 {
                     new Claim(ClaimTypes.NameIdentifier, session.User.Id?.ToString() ?? ""),
                     new Claim(ClaimTypes.Email, session.User.Email?.ToString() ?? ""),
-                    new Claim(ClaimTypes.Name, session.User.UserMetadata?["full_name"]?.ToString() ?? "Usuario Github")
+                    new Claim(ClaimTypes.Name, nombreMetadato)
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

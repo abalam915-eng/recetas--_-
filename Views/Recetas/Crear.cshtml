@@ -4,7 +4,7 @@
 }
 <h2>Crear Receta</h2>
 <hr />
-<form asp-action="Crear" method="post">
+<form asp-action="Crear" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label asp-for="Titulo" class="form-label"></label>
         <input asp-for="Titulo" class="form-control" required />
@@ -18,6 +18,11 @@
         <label asp-for="Pasos" class="form-label"></label>
         <textarea asp-for="Pasos" class="form-control" rows="5" required></textarea>
         <small class="text-muted">Describe los pasos de preparación.</small>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Imagen de la Receta</label>
+        <input type="file" name="imagenArchivo" class="form-control" accept="image/*" />
+        <small class="text-muted">Sube una foto real de tu comida (opcional).</small>
     </div>
     <button type="submit" class="btn btn-primary">Guardar como Borrador</button>
     <a asp-action="MisRecetas" class="btn btn-secondary">Cancelar</a>

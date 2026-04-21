@@ -22,6 +22,9 @@ namespace RecetasApp.Models
         [Column("pasos")]
         public string? Pasos { get; set; }
 
+        [Column("imagen")]
+        public string? Imagen { get; set; }
+
         [Column("estatus")]
         public string Estatus { get; set; } = "Borrador";
 

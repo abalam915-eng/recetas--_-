@@ -114,3 +114,4 @@ C:\geminicode\mich\RecetasApp\obj\Debug\net10.0\refint\RecetasApp.dll
 C:\geminicode\mich\RecetasApp\obj\Debug\net10.0\RecetasApp.pdb
 C:\geminicode\mich\RecetasApp\obj\Debug\net10.0\RecetasApp.genruntimeconfig.cache
 C:\geminicode\mich\RecetasApp\obj\Debug\net10.0\ref\RecetasApp.dll
+C:\geminicode\mich\RecetasApp\obj\Debug\net10.0\RecetasApp.sourcelink.json
