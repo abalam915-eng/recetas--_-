@@ -12,15 +12,19 @@ namespace RecetasApp.Controllers
             _supabase = supabase;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? q)
         {
-            var response = await _supabase.From<Receta>()
-                .Where(x => x.Estatus == "Publicada")
-                .Get();
+            var query = _supabase.From<Receta>().Where(x => x.Estatus == "Publicada");
 
-            var recetasPublicadas = response.Models;
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                query = query.Filter("titulo", Supabase.Postgrest.Constants.Operator.ILike, $"%{q}%");
+            }
 
-            return View(recetasPublicadas);
+            var response = await query.Get();
+
+            ViewData["SearchQuery"] = q;
+            return View(response.Models);
         }
     }
 }

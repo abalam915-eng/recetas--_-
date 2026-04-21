@@ -4,9 +4,20 @@
     ViewData["Title"] = "Inicio - Recetas Públicas";
 }
 
-<div class="text-center mb-4">
-    <h1 class="display-4">Recetas Públicas</h1>
-    <p>Descubre las recetas compartidas por nuestra comunidad.</p>
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold">Recetas Públicas</h1>
+    <p class="lead text-muted">Descubre las recetas compartidas por nuestra comunidad.</p>
+    
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 col-lg-6">
+            <form asp-action="Index" method="get" class="d-flex shadow-sm rounded-pill overflow-hidden">
+                <input type="text" name="q" value="@ViewData["SearchQuery"]" class="form-control form-control-lg border-0 ps-4 bg-light" placeholder="¿Qué se te antoja preparar hoy?" aria-label="Buscar receta">
+                <button type="submit" class="btn btn-primary btn-lg border-0 px-4">
+                    🔍 Buscar
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -20,25 +31,51 @@
                     {
                         <img src="@receta.Imagen" class="card-img-top" alt="@receta.Titulo" style="height: 200px; object-fit: cover;">
                     }
-                    <div class="card-body">
-                        <h5 class="card-title">@receta.Titulo</h5>
-                        <p class="card-text text-muted">Publicado el @receta.FechaPublicacion?.ToString("dd/MM/yyyy")</p>
-                        <h6>Ingredientes</h6>
-                        <p class="card-text" style="white-space: pre-line">@receta.Ingredientes</p>
-                        <h6>Pasos</h6>
-                        <p class="card-text" style="white-space: pre-line">@receta.Pasos</p>
+                    <div class="card-body d-flex flex-column text-center bg-light">
+                        <h5 class="card-title fw-bold text-dark mt-2">@receta.Titulo</h5>
+                        <p class="card-text text-muted mb-3"><small>Publicado el @receta.FechaPublicacion?.ToString("dd/MM/yyyy")</small></p>
+                        <button type="button" class="btn btn-primary mt-auto w-100 fw-semibold shadow-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalReceta_@receta.Id.ToString("N")">
+                            Ver Detalles
+                        </button>
                     </div>
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <div class="card-footer bg-transparent border-top-0">
+                        <div class="card-footer bg-transparent border-top-0 pt-0">
                             <form asp-controller="Favoritos" asp-action="MarcarFavorito" method="post">
                                 <input type="hidden" name="recetaId" value="@receta.Id" />
                                 <button type="submit" class="btn btn-outline-danger w-100">
-                                    ❤️ Marcar como Favorito
+                                    ❤️ Favorito
                                 </button>
                             </form>
                         </div>
                     }
+                </div>
+            </div>
+
+            <!-- Modal Descripcion -->
+            <div class="modal fade" id="modalReceta_@receta.Id.ToString("N")" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title fw-bold">@receta.Titulo</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-4">
+                            @if(!string.IsNullOrEmpty(receta.Imagen))
+                            {
+                                <img src="@receta.Imagen" class="img-fluid rounded mb-4 w-100 shadow-sm" style="max-height: 400px; object-fit: cover;" alt="@receta.Titulo">
+                            }
+                            
+                            <h6 class="text-primary fw-bold text-uppercase border-bottom pb-2">Ingredientes</h6>
+                            <p class="mb-4" style="white-space: pre-line">@receta.Ingredientes</p>
+                            
+                            <h6 class="text-primary fw-bold text-uppercase border-bottom pb-2">Pasos de Preparación</h6>
+                            <p style="white-space: pre-line">@receta.Pasos</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         }
